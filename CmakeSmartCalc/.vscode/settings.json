@@ -1,9 +1,0 @@
-{
-    "C_Cpp.errorSquiggles": "disabled",
-    "files.associations": {
-        "smart_calc.h": "c",
-        "calculator.h": "c",
-        "string_view": "cpp",
-        "qmessagebox": "cpp"
-    }
-}
