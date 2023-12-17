@@ -20,15 +20,15 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets PrintSupport REQUIRED)
 include_directories(SmartCalc)
 include_directories(SmartCalc/function/calculator)
 include_directories(SmartCalc/function/stack)
-
+include_directories(source/)
 # Добавим исходные файлы
 set(PROJECT_SOURCES
     source/main.cpp
     source/mainwindow.cpp
     source/mainwindow.h
     source/mainwindow.ui
-    qcustomplot.cpp
-    qcustomplot.h
+    source/qcustomplot.cpp
+    source/qcustomplot.h
     source/creditcalc.cpp
     source/creditcalc.h
     source/creditcalc.ui

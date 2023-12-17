@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #ifdef __cplusplus
+
 extern "C" {
 #endif
 #include "SmartCalc/s21_smartCalc.h"

@@ -129,8 +129,21 @@ void depositcalc::on_pushButton_calculate_clicked()
         Periodicity payoutPeriodicity = getperiod(payoutPeriodicityStr);
 
         if(payoutPeriodicity != Periodicity::Err) {
+            // initialAmount == сумма вклада
+            // depositTermMonths == срок вклада 
+            // annualInterestRate == процентная ставка
+            // taxRate == налог
+            // payoutPeriodicity == выплаты (частота)
+            // interestCapitalization == капитализация 
+            // deposits == масив вкладов
+            // withdrawals == массив снятий
+            // depositCount == количество вкладов
+            // withdrawalCount == количество снятий
+            
             DepositResult result = s21_calculateDeposit(initialAmount, depositTermMonths, annualInterestRate,
                                                     taxRate, payoutPeriodicity, interestCapitalization, deposits, withdrawals, depositCount, withdrawalCount);
+            
+            
             ui->label_totalDeposit->setText(QString::number(result.totalDeposit));
             ui->label_totalInterest->setText(QString::number(result.totalInterest));
             ui->label_totalTax->setText(QString::number(result.totalTax));
@@ -151,7 +164,6 @@ void depositcalc::on_pushButton_addPays_clicked()
 {
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(row);
-
     QDoubleValidator* validator = new QDoubleValidator(0.0, std::numeric_limits<double>::max(), 6, this);
 
     // Создаем QLineEdit для ячейки ввода и устанавливаем валидатор

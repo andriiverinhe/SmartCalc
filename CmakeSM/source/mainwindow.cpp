@@ -1,8 +1,9 @@
+#include <QValidator>
 #include "mainwindow.h"
 #include "../ui_mainwindow.h"
 #include "creditcalc.h"
 #include "depositcalc.h"
-#include "QValidator"
+#include "qcustomplot.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

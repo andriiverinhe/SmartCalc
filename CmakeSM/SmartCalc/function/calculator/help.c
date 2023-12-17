@@ -117,7 +117,7 @@ s21_stack *s21_getStackOnPolishNotation(s21_stack *main) {
           sign = s21_push(sign, main->number, main->sign, main->priority);
         else {
           while (sign && sign->priority != 5 &&
-                 sign->priority >= main->priority && main->priority != SUBSUM && sign->priority != POWER) {
+                 sign->priority >= main->priority) {
             tmp = s21_push(tmp, sign->number, sign->sign, sign->priority);
             sign = s21_pop(sign);
           }

@@ -57,14 +57,14 @@ int s21_checkSing(char *str, int *index) {
         str[i] == 't' || str[i] == '(' || str[i] == 'l' || str[i] == 'x' ||
         isdigit(str[i]))
       break;
-    if(str[i] == '^' &&(str[i+1] == '-' || str[i+1] == '+')) {
-      code = -1;
-      i++;
-      // printf("12\n");
-      break;
-    }
+    // if(str[i] == '^' &&(str[i+1] == '-' || str[i+1] == '+')) {
+    //   code = -1;
+    //   i++;
+    //   // printf("12\n");
+    //   break;
+    // }
   }
-  if (codeSIGN != 1 && code != -1)
+  if (codeSIGN != 1)
     code = 0;
   *(index) += --i;
   return code;
@@ -115,7 +115,7 @@ int s21_validator(char *str) {
       codeBracketL = 0;
       // printf("code DIG: %d\n", codeDIG);
     } else if (((!codeSIGN && (str[i] == '+' || str[i] == '-' || str[i] == '*' ||
-                             str[i] == '/' || str[i] == '^' || str[i] == '%')) || codeSIGN == -1) && (i != 0 || ((i == 0 && str[i] == '+' )||(i == 0 && str[i] == '-')))) {
+                             str[i] == '/' || str[i] == '^' || str[i] == '%'))) && (i != 0 || ((i == 0 && str[i] == '+' )||(i == 0 && str[i] == '-')))) {
 
 
       if (codeBracketL && (str[i] != '+' && str[i] != '-'))
