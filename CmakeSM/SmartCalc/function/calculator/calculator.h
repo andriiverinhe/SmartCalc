@@ -9,6 +9,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef enum {
   NUMBER = 0,
@@ -51,10 +52,13 @@ double s21_calcGraph(char *input, double *coordinate);
 void s21_calculateDifferentiatedPayment(double loanAmount, double annualInterestRate, int loanTermMonths, double *resTotal, double *resMonthly);
 void s21_calculateAnnuityPayment(double loanAmount, double annualInterestRate, int loanTermMonths, double *result);
 
-DepositResult s21_calculateDeposit(double initialAmount, int depositTermMonths, double annualInterestRate,
-                               double taxRate, Periodicity payoutPeriodicity, int interestCapitalization,
-                               const double* deposits, const double* withdrawals, int depositCount, int withdrawalCount);
-
+long double get_tax_amount(long double total_amount, long double tax_rate);
+long double get_total_amount(long double deposit_amount,
+                             long double earned_money, long double tax_amount);
+long double get_total_earned(double *deposit_amount, double term,
+                             long double interest_rate, int MODE,
+                             bool is_capitalization, long double replenishments,
+                             long double withdraws);
 // HELPERS
 double s21_NewCalculator(s21_stack *st);
 void s21_getNumber(const char *input, char *num);
@@ -62,6 +66,8 @@ void s21_getSign(const char *input, char *sign);
 s21_stack *s21_getStackFromStr(const char *input, s21_stack *main);
 int s21_getPriority(char *sign);
 s21_stack *s21_getStackOnPolishNotation(s21_stack *main);
+double s21_sumArray(double *arr, int count);
+
 // void s21_printStrFromStack(s21_stack *st);
 // PARESER
 int s21_validator(char *str);

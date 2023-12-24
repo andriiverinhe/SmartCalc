@@ -26,10 +26,8 @@ depositcalc::depositcalc(QWidget *parent) :
     ui->lineEdit_interestRate->setValidator( new QDoubleValidator(0, 100, 10, this));
     ui->lineEdit_term->setValidator(new QIntValidator(1, INT_MAX, this));
 
-    ui->listWidget_periodOfPayments->addItem("Ежедневно");
-    ui->listWidget_periodOfPayments->addItem("Еженедельно");
+
     ui->listWidget_periodOfPayments->addItem("Раз в месяц");
-    ui->listWidget_periodOfPayments->addItem("Раз в пол года");
     ui->listWidget_periodOfPayments->addItem("Раз в год");
 
 }
@@ -75,14 +73,9 @@ return str.size() != 0? true : false;
 
 Periodicity getperiod(QString str) {
     Periodicity pr = Periodicity::Err;
-    if(str == "Ежедневно")
-        pr = Periodicity::Daily;
-    if(str == "Еженедельно")
-        pr = Periodicity::Weekly;
+
     if(str == "Раз в месяц")
         pr = Periodicity::Monthly;
-    if(str == "Раз в пол года")
-        pr = Periodicity::SemiAnnually;
     if(str == "Раз в год")
         pr = Periodicity::Annually;
     return pr;
@@ -139,14 +132,42 @@ void depositcalc::on_pushButton_calculate_clicked()
             // withdrawals == массив снятий
             // depositCount == количество вкладов
             // withdrawalCount == количество снятий
+            DepositResult result = {0};
+            result.initialAmount = initialAmount;
+            result.depositTermMonths = depositTermMonths;
+            result.annualInterestRate = annualInterestRate;
+            result.taxRate = taxRate;
+            switch (payoutPeriodicity)
+            {
+            case Monthly:
+                result.payoutPeriodicity = 1;
+                break;
+            case Annually:
+                result.payoutPeriodicity = 2;
+                break;
+            default:
+                break;
+            }
             
-            DepositResult result = s21_calculateDeposit(initialAmount, depositTermMonths, annualInterestRate,
-                                                    taxRate, payoutPeriodicity, interestCapitalization, deposits, withdrawals, depositCount, withdrawalCount);
-            
-            
-            ui->label_totalDeposit->setText(QString::number(result.totalDeposit));
-            ui->label_totalInterest->setText(QString::number(result.totalInterest));
-            ui->label_totalTax->setText(QString::number(result.totalTax));
+            result.interestCapitalization  = interestCapitalization;
+
+            if(deposits)
+                result.deposits = s21_sumArray(deposits, depositCount);
+            if(withdrawals)
+                result.withdrawals = s21_sumArray(withdrawals, withdrawalCount);
+            // calculateDeposit(&result);
+             long double total_earned = get_total_earned(&result.initialAmount, result.depositTermMonths,
+                             result.annualInterestRate, result.payoutPeriodicity,
+                             result.interestCapitalization, result.deposits,
+                             result.withdrawals);
+
+             long double tax_amount = get_tax_amount(total_earned, result.taxRate);
+    long double total_amount =
+        get_total_amount(initialAmount, total_earned, tax_amount);
+
+            ui->label_totalDeposit->setText(QString::number(total_amount, 'g', 7));
+            ui->label_totalInterest->setText(QString::number(total_earned, 'g', 7));
+            ui->label_totalTax->setText(QString::number(tax_amount, 'g', 7));
         }
         delete[] deposits;
         delete[] withdrawals;

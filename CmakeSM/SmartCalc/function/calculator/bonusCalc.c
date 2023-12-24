@@ -34,72 +34,41 @@ void s21_calculateDifferentiatedPayment(double loanAmount, double annualInterest
         resTotal[1] = overpayment;
 }
 
-DepositResult s21_calculateDeposit(double initialAmount, int depositTermMonths, double annualInterestRate,
-                               double taxRate, Periodicity payoutPeriodicity, int interestCapitalization,
-                               const double* deposits, const double* withdrawals, int depositCount, int withdrawalCount) {
-    double principal = initialAmount;
-    double totalInterest = 0.0;
-    double totalTax = 0.0;
+long double get_tax_amount(long double total_amount, long double tax_rate) {
+  return total_amount * tax_rate / 100;
+}
 
-    int payoutFrequency = 1; // Once per term by default
-    switch (payoutPeriodicity) {
-        case Daily:
-            payoutFrequency = 365;
-            break;
-        case Weekly:
-            payoutFrequency = 52;
-            break;
-        case Monthly:
-            payoutFrequency = 12;
-            break;
-        case SemiAnnually:
-            payoutFrequency = 2;
-            break;
-        case Annually:
-            payoutFrequency = 1;
-            break;
-        case Err:
-            // Handle error
-            break;
+long double get_total_amount(long double deposit_amount,
+                             long double earned_money, long double tax_amount) {
+  return deposit_amount + earned_money - tax_amount;
+}
+
+long double get_total_earned(double *deposit_amount, double term,
+                             long double interest_rate, int MODE,
+                             bool is_capitalization, long double replenishments,
+                             long double withdraws) {
+  long double earned_money_amount = 0;
+  int period = MODE == 1 ? 12 : 1;
+//   replenishments = MODE == 1 ? replenishments : replenishments * 12;
+//   withdraws = MODE == 1 ? withdraws : withdraws * 12;
+
+  for (int i = 0; (double)i < term; i++) {
+    long double cumulative_earnings = 0;
+    if (MODE == 1) {
+      cumulative_earnings = *deposit_amount * interest_rate / 100 / period;
     }
-
-    int totalPeriods = payoutFrequency * depositTermMonths;
-    double monthlyInterestRate = annualInterestRate / payoutFrequency / 100.0;
-
-    // Сначала добавляем суммы вкладов
-    double totalDeposits = 0.0;
-    for (int i = 0; i < depositCount; ++i) {
-        totalDeposits += deposits[i];
+    if (MODE == 2) {
+      if (i % 11 == 0 && i != 0) {
+        cumulative_earnings = *deposit_amount * interest_rate / 100 / period;
+      }
     }
-
-    // Затем добавляем их к основной сумме
-    principal += totalDeposits;
-
-    for (int period = 1; period <= totalPeriods; ++period) {
-        if (interestCapitalization) {
-            principal *= (1 + monthlyInterestRate);
-        }
-
-        if (period % payoutFrequency == 0) {
-            // Calculate interest and apply tax
-            double interest = principal * monthlyInterestRate * payoutFrequency;
-            double taxedInterest = interest * (1 - taxRate);
-            totalInterest += taxedInterest;
-            totalTax += interest - taxedInterest;
-        }
+    *deposit_amount += replenishments;
+    *deposit_amount -= withdraws;
+    if (is_capitalization) {
+      *deposit_amount += cumulative_earnings;
     }
-    // В конце вычитаем сумму снятий
-    double totalWithdrawals = 0.0;
-    for (int i = 0; i < withdrawalCount; ++i) {
-        totalWithdrawals += withdrawals[i];
-    }
+    earned_money_amount += cumulative_earnings;
+  }
 
-    principal -= totalWithdrawals;
-
-    DepositResult result;
-    result.totalDeposit = principal + totalInterest;
-    result.totalInterest = totalInterest;
-    result.totalTax = totalTax;
-
-    return result;
+  return earned_money_amount;
 }

@@ -356,3 +356,12 @@ void s21_replacingXforValue(s21_stack *main, const double value) {
     tmp = tmp->next;
   }
 }
+
+
+double s21_sumArray(double *arr, int count) {
+    double totalSum = 0.0;
+    for (int i = 0; i < count; ++i) {
+        totalSum += arr[i];
+    }
+    return totalSum;
+}
