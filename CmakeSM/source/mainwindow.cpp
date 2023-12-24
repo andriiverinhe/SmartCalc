@@ -14,11 +14,32 @@ MainWindow::MainWindow(QWidget *parent)
     xEnd = 100;
     ui->widget->xAxis->setRange(xBegin, xEnd);
     ui->widget->yAxis->setRange(xBegin, xEnd);
+
     ui->widget->hide();
+    ui->lineEdit_xMax->hide();
+    ui->lineEdit_yMax->hide();
+    ui->lineEdit_xMin->hide();
+    ui->lineEdit_yMin->hide();
+
+    ui->label_xMax->hide();
+    ui->label_yMax->hide();
+    ui->label_xMin->hide();
+    ui->label_yMin->hide();
+
+
     window()->setFixedSize(420, window()->height());
 
 
     ui->lineEdit_x->setValidator( new QDoubleValidator(-100, 100, 6, this));
+    ui->lineEdit_xMax->setValidator(new QIntValidator(-1000000, 1000000, this));
+    ui->lineEdit_xMin->setValidator(new QIntValidator(-1000000, 1000000, this));
+    ui->lineEdit_yMax->setValidator(new QIntValidator(-1000000, 1000000, this));
+    ui->lineEdit_yMin->setValidator(new QIntValidator(-1000000, 1000000, this));
+
+    ui->lineEdit_xMax->setText("100");
+    ui->lineEdit_yMax->setText("100");
+    ui->lineEdit_xMin->setText("-100");
+    ui->lineEdit_yMin->setText("-100");
     // BUTTON DIGIT
     connect(ui->pushButton__0, SIGNAL(clicked()), this, SLOT(digitNumbers()));
     connect(ui->pushButton__1, SIGNAL(clicked()), this, SLOT(digitNumbers()));
@@ -138,19 +159,65 @@ void MainWindow::on_pushButton_result_clicked() {
 
 //}
 
+void MainWindow::setSizeGraph() {
+    ui->widget->clearGraphs();
+    xMax = ui->lineEdit_xMax->text().toInt();
+    xMin = ui->lineEdit_xMin->text().toInt();
+    yMax = ui->lineEdit_yMax->text().toInt();
+    yMin = ui->lineEdit_yMin->text().toInt();
+
+    if(xMax > 1000000) xMax = 1000000;
+    if(yMax > 1000000) yMax = 1000000;
+    if(xMin < -1000000) xMin = -1000000;
+    if(yMin < -1000000) yMin = -1000000;
+
+    xBegin = xMin;
+    xEnd = xMax;
+
+    ui->widget->xAxis->setRange(xMin, xMax);
+    ui->widget->yAxis->setRange(yMin, yMax);
+};
+
 
 void MainWindow::on_pushButton_graph_clicked()
 {
- int size = ((xEnd - xBegin) / 0.1) * 4;
- double cord[size];
- double err = s21_calcGraph(ui->label_result->text().toUtf8().data(), cord);
- if(!isnan(err)){
-     for(int i = 0; i < size; i++) {
-         x.push_back(cord[i++]);
-         y.push_back(cord[i]);
-     }
+ setSizeGraph();
+ int size = ((xEnd - xBegin) / 0.1);
+//  double cord[size];
+//  double err = s21_calcGraph(ui->label_result->text().toUtf8().data(), cord, size);
+    char input[256] = {""};
+    strcpy(input, ui->label_result->text().toUtf8().data());
+ if(strlen(input) != 0 && s21_validator(input)) {
+    s21_stack *main = NULL;
+    main = s21_getStackFromStr(input, main);
+    main = s21_getStackOnPolishNotation(main);
+    double X = xBegin;
+    for(int i = 0; i < size; i++, X+= 0.1) {
+        s21_stack *copy = s21_copyStack(main);
+        if (s21_checkX(copy)) {
+            s21_replacingXforValue(copy, X);
+        }
+        x.push_back(X);
+        y.push_back(s21_NewCalculator(copy));
+
+        if (copy)
+            s21_clearStack(copy);
+    }
+    if (main)
+      s21_clearStack(main);
+
      ui->widget->show();
-     window()->setFixedSize(840, window()->height());
+     ui->lineEdit_xMax->show();
+     ui->lineEdit_yMax->show();
+     ui->lineEdit_xMin->show();
+     ui->lineEdit_yMin->show();
+
+     ui->label_xMax->show();
+     ui->label_yMax->show();
+     ui->label_xMin->show();
+     ui->label_yMin->show();
+
+     window()->setFixedSize(842, window()->height());
 
      ui->widget->clearGraphs();
      ui->widget->addGraph();

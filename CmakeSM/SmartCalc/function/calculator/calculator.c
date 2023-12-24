@@ -29,7 +29,7 @@ double s21_calc(char *input, const int inputX) {
 // 0 - NE OK
 
 
-double s21_calcGraph(char *input, double *coordinate) {
+double s21_calcGraph(char *input, double *coordinate, const int size) {
   int code = 1;
   
   int count = 0;
@@ -42,8 +42,8 @@ double s21_calcGraph(char *input, double *coordinate) {
     
     main = s21_getStackOnPolishNotation(main);
     double i = -100;
-    int size = ((200 / 0.1) * 2);
-    for(int k = 0; k < size; i+=0.1, k++) {
+//    int size = ((200 / 0.1) * 2);
+    for(int k = 0; k < (size / 2); i+=0.1, k++) {
     s21_stack *copy = s21_copyStack(main);
     if (s21_checkX(copy)) {
       s21_replacingXforValue(copy, i);

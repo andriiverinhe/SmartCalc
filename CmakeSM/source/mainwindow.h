@@ -47,6 +47,9 @@ private slots:
     void on_actionCredit_triggered();
     void on_actionDeposit_triggered();
     void on_pushButton_clearSign_clicked();
+
+private:
+    void setSizeGraph();
 };
 
 #endif // MAINWINDOW_H

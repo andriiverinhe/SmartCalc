@@ -48,7 +48,7 @@ typedef enum {
 
 // CALCULATORS
 double s21_calc(char *input, const int inputX);
-double s21_calcGraph(char *input, double *coordinate);
+double s21_calcGraph(char *input, double *coordinate, const int size);
 void s21_calculateDifferentiatedPayment(double loanAmount, double annualInterestRate, int loanTermMonths, double *resTotal, double *resMonthly);
 void s21_calculateAnnuityPayment(double loanAmount, double annualInterestRate, int loanTermMonths, double *result);
 

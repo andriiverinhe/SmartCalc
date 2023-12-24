@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>840</width>
-    <height>442</height>
+    <height>445</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -792,7 +792,7 @@ QPushButton {
       <x>420</x>
       <y>0</y>
       <width>420</width>
-      <height>401</height>
+      <height>341</height>
      </rect>
     </property>
    </widget>
@@ -840,6 +840,162 @@ QPushButton {
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_xMax">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>350</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_xMin">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>380</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_yMax">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>350</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_yMin">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>380</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_xMax">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>350</y>
+      <width>65</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+  background-color: rgb(255, 255, 255);
+  qproperty-alignment: 'AlignVCenter | AlignRight';
+  border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>xMax:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_xMin">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>380</y>
+      <width>65</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+  background-color: rgb(255, 255, 255);
+  qproperty-alignment: 'AlignVCenter | AlignRight';
+  border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>xMin:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_yMax">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>350</y>
+      <width>65</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+  background-color: rgb(255, 255, 255);
+  qproperty-alignment: 'AlignVCenter | AlignRight';
+  border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>yMax:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_yMin">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>380</y>
+      <width>65</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+  background-color: rgb(255, 255, 255);
+  qproperty-alignment: 'AlignVCenter | AlignRight';
+  border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>yMin:</string>
     </property>
    </widget>
   </widget>
