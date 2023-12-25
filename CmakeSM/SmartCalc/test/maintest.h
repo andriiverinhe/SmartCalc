@@ -6,3 +6,4 @@
 void run_tests();
 void run_test_case(Suite *ptr_test);
 Suite *s21_testCalc(void);
+Suite *s21_testBonusCalc(void);

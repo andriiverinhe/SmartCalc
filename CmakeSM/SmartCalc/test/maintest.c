@@ -9,7 +9,7 @@ int main() {
   return 0;
 }
 void run_tests() {
-  Suite *case_tests[] = {s21_testCalc(),
+  Suite *case_tests[] = {s21_testCalc(),s21_testBonusCalc(),
                          NULL};
   for (Suite **ptr_test = case_tests; *ptr_test != NULL; ptr_test++)
     run_test_case(*ptr_test);

@@ -5,7 +5,10 @@ void s21_calculateAnnuityPayment(double loanAmount, double annualInterestRate, i
     double monthlyInterestRate = annualInterestRate / 12 / 100;
     double numerator = loanAmount * monthlyInterestRate;
     double denominator = 1 - pow(1 + monthlyInterestRate, -loanTermMonths);
-    double monthlyPayment = numerator / denominator;
+    double monthlyPayment = 0.0;
+    if(denominator != 0.0)
+      monthlyPayment = numerator / denominator;
+    
     double totalPayment = monthlyPayment * loanTermMonths;
     double overpayment = totalPayment - loanAmount;
 
@@ -45,7 +48,7 @@ long double get_total_amount(long double deposit_amount,
 
 long double get_total_earned(DepositResult *deposit, int MODE) {
   long double earned_money_amount = 0;
-  int period = MODE == 1 ? 12 : 1;
+  int period = (MODE == 1) ? 12 : 1;
 //   replenishments = MODE == 1 ? replenishments : replenishments * 12;
 //   withdraws = MODE == 1 ? withdraws : withdraws * 12;
 
