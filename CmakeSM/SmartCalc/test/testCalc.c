@@ -153,8 +153,59 @@ START_TEST (test_22) {
     double res = s21_calc(input, x);
     ck_assert_double_eq_tol(res, pow(1,-2), ACCURECY);
 }
+END_TEST
+
+START_TEST (test_23) {
+    ck_assert_double_eq_tol(s21_operations(2,2,-1), 0.0, ACCURECY);
+}
 
 END_TEST
+START_TEST (test_24) {
+    char * input = "1+2.2";
+    double x = 1;
+    double res = s21_calc(input, x);
+    ck_assert_double_eq_tol(res, 1+2.2, ACCURECY);
+}
+END_TEST
+START_TEST (test_25) {
+    char * input = "1+2.2.2";
+    double x = 1;
+    double res = s21_calc(input, x);
+    ck_assert_double_nan(res);
+}
+END_TEST
+START_TEST (test_26) {
+    char * input = "cos(1)";
+    double x = 0;
+    double res = s21_calc(input, x);
+    ck_assert_double_eq_tol(res, cos(1), ACCURECY);
+}
+END_TEST
+START_TEST (test_27) {
+    s21_stack *main = NULL;
+    main = s21_push(main, 10, "", 0);
+    s21_stack *cp = s21_copyStack(main);
+
+    ck_assert_double_eq_tol(main->number, cp->number, ACCURECY);
+
+
+    s21_clearStack(main);
+    s21_clearStack(cp);
+}
+END_TEST
+START_TEST (test_28) {
+    s21_stack *main = NULL;
+    main = s21_push(main, 0 , NULL, 0);
+    s21_setValueStack(0, NULL, 1, main);
+    ck_assert_ptr_null(main->sign);
+
+    s21_clearStack(main);
+}
+END_TEST
+
+
+
+
 Suite *s21_testCalc(void) {
     Suite *s = suite_create("TEST SMART CALC");
     TCase *tc = tcase_create("Case Smart Calc");
@@ -181,6 +232,12 @@ Suite *s21_testCalc(void) {
     tcase_add_test(tc, test_20);
     tcase_add_test(tc, test_21);
     tcase_add_test(tc, test_22);
+    tcase_add_test(tc, test_23);
+    tcase_add_test(tc, test_24);
+    tcase_add_test(tc, test_25);
+    tcase_add_test(tc, test_26);
+    tcase_add_test(tc, test_27);
+    tcase_add_test(tc, test_28);
     
 
     suite_add_tcase(s, tc);

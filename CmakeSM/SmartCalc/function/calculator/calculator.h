@@ -64,7 +64,7 @@ s21_stack *s21_getStackFromStr(const char *input, s21_stack *main);
 int s21_getPriority(char *sign);
 s21_stack *s21_getStackOnPolishNotation(s21_stack *main);
 double s21_sumArray(double *arr, int count);
-
+double s21_operations(double num1, double num2, const int lex);
 // void s21_printStrFromStack(s21_stack *st);
 // PARESER
 int s21_validator(char *str);

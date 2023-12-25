@@ -57,10 +57,6 @@ s21_stack *s21_reverseStack(s21_stack *top) {
 
 
 s21_stack *s21_copyStack(const s21_stack *original_top) {
-    if (original_top == NULL) {
-        return NULL;  // Если исходный стек пуст, возвращаем NULL
-    }
-
     s21_stack *copied_top = NULL;  // Инициализируем новый стек
 
     // Итерируемся по исходному стеку и добавляем элементы в новый стек

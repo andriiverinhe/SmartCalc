@@ -151,7 +151,14 @@ void MainWindow::setSizeGraph() {
     if(yMax > 1000000) yMax = 1000000;
     if(xMin < -1000000) xMin = -1000000;
     if(yMin < -1000000) yMin = -1000000;
-
+    if(xMax <= xMin) {
+        xMax = 25;
+        xMin = -25;
+    }
+    if(yMax <= yMin) {
+        yMax = 25;
+        yMin = -25;
+    }
     xBegin = xMin;
     xEnd = xMax;
 
