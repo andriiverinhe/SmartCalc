@@ -71,16 +71,26 @@ return str.size() != 0? true : false;
 }
 
 
-Periodicity getperiod(QString str) {
-    Periodicity pr = Periodicity::Err;
-
+int getperiod(QString str) {
+    int pr = -1;
     if(str == "Раз в месяц")
-        pr = Periodicity::Monthly;
+        pr = 1;
     if(str == "Раз в год")
-        pr = Periodicity::Annually;
+        pr = 2;
     return pr;
 }
 
+
+            // initialAmount == сумма вклада
+            // depositTermMonths == срок вклада 
+            // annualInterestRate == процентная ставка
+            // taxRate == налог
+            // payoutPeriodicity == выплаты (частота)
+            // interestCapitalization == капитализация 
+            // deposits == масив вкладов
+            // withdrawals == массив снятий
+            // depositCount == количество вкладов
+            // withdrawalCount == количество снятий
 void depositcalc::on_pushButton_calculate_clicked()
 {
 
@@ -114,56 +124,26 @@ void depositcalc::on_pushButton_calculate_clicked()
     if(checkCorrect(initialAmountStr) && checkCorrect(depositTermMonthsStr)
             && checkCorrect(annualInterestRateStr) && checkCorrect(taxRateStr)
             && checkCorrect(payoutPeriodicityStr)) {
+        DepositResult result = {0};        
 
-        double initialAmount = initialAmountStr.toDouble();
-        double depositTermMonths = depositTermMonthsStr.toDouble();
-        double annualInterestRate = annualInterestRateStr.toDouble();
-        double taxRate = taxRateStr.toDouble();
-        Periodicity payoutPeriodicity = getperiod(payoutPeriodicityStr);
+        result.initialAmount = initialAmountStr.toDouble();
+        result.depositTermMonths = depositTermMonthsStr.toDouble();
+        result.annualInterestRate = annualInterestRateStr.toDouble();
+        result.taxRate = taxRateStr.toDouble();
+        result.payoutPeriodicity = getperiod(payoutPeriodicityStr);
+        result.interestCapitalization  = interestCapitalization;
 
-        if(payoutPeriodicity != Periodicity::Err) {
-            // initialAmount == сумма вклада
-            // depositTermMonths == срок вклада 
-            // annualInterestRate == процентная ставка
-            // taxRate == налог
-            // payoutPeriodicity == выплаты (частота)
-            // interestCapitalization == капитализация 
-            // deposits == масив вкладов
-            // withdrawals == массив снятий
-            // depositCount == количество вкладов
-            // withdrawalCount == количество снятий
-            DepositResult result = {0};
-            result.initialAmount = initialAmount;
-            result.depositTermMonths = depositTermMonths;
-            result.annualInterestRate = annualInterestRate;
-            result.taxRate = taxRate;
-            switch (payoutPeriodicity)
-            {
-            case Monthly:
-                result.payoutPeriodicity = 1;
-                break;
-            case Annually:
-                result.payoutPeriodicity = 2;
-                break;
-            default:
-                break;
-            }
-            
-            result.interestCapitalization  = interestCapitalization;
-
+        if(result.payoutPeriodicity != -1) {
+            double initAmount = result.initialAmount;
+        
             if(deposits)
                 result.deposits = s21_sumArray(deposits, depositCount);
             if(withdrawals)
                 result.withdrawals = s21_sumArray(withdrawals, withdrawalCount);
-            // calculateDeposit(&result);
-             long double total_earned = get_total_earned(&result.initialAmount, result.depositTermMonths,
-                             result.annualInterestRate, result.payoutPeriodicity,
-                             result.interestCapitalization, result.deposits,
-                             result.withdrawals);
 
+             long double total_earned = get_total_earned(&result, result.payoutPeriodicity);
              long double tax_amount = get_tax_amount(total_earned, result.taxRate);
-    long double total_amount =
-        get_total_amount(initialAmount, total_earned, tax_amount);
+             long double total_amount = get_total_amount(initAmount, total_earned, tax_amount);
 
             ui->label_totalDeposit->setText(QString::number(total_amount, 'g', 7));
             ui->label_totalInterest->setText(QString::number(total_earned, 'g', 7));

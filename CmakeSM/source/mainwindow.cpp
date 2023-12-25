@@ -10,25 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     //GRAPH
-    xBegin = -100;
-    xEnd = 100;
+    xBegin = -25;
+    xEnd = 25;
     ui->widget->xAxis->setRange(xBegin, xEnd);
     ui->widget->yAxis->setRange(xBegin, xEnd);
-
-    ui->widget->hide();
-    ui->lineEdit_xMax->hide();
-    ui->lineEdit_yMax->hide();
-    ui->lineEdit_xMin->hide();
-    ui->lineEdit_yMin->hide();
-
-    ui->label_xMax->hide();
-    ui->label_yMax->hide();
-    ui->label_xMin->hide();
-    ui->label_yMin->hide();
-
-
-    window()->setFixedSize(420, window()->height());
-
+    hideGraph();
 
     ui->lineEdit_x->setValidator( new QDoubleValidator(-100, 100, 6, this));
     ui->lineEdit_xMax->setValidator(new QIntValidator(-1000000, 1000000, this));
@@ -36,10 +22,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_yMax->setValidator(new QIntValidator(-1000000, 1000000, this));
     ui->lineEdit_yMin->setValidator(new QIntValidator(-1000000, 1000000, this));
 
-    ui->lineEdit_xMax->setText("100");
-    ui->lineEdit_yMax->setText("100");
-    ui->lineEdit_xMin->setText("-100");
-    ui->lineEdit_yMin->setText("-100");
+    ui->lineEdit_xMax->setText("25");
+    ui->lineEdit_yMax->setText("25");
+    ui->lineEdit_xMin->setText("-25");
+    ui->lineEdit_yMin->setText("-25");
     // BUTTON DIGIT
     connect(ui->pushButton__0, SIGNAL(clicked()), this, SLOT(digitNumbers()));
     connect(ui->pushButton__1, SIGNAL(clicked()), this, SLOT(digitNumbers()));
@@ -129,12 +115,13 @@ void MainWindow::on_pushButton_clean_clicked()
 {
     ui->label_result->setText("");
     ui->lineEdit_x->setText("");
+    ui->widget->clearGraphs();
 }
 
 
 void MainWindow::on_pushButton_result_clicked() {
-    ui->widget->hide();
-    window()->setFixedSize(420, window()->height());
+    hideGraph();
+    
 
     clickedResult = true;
     QString myQString = ui->label_result->text();
@@ -152,12 +139,6 @@ void MainWindow::on_pushButton_result_clicked() {
         ui->label_result->setText((QString)"Invalid input value.");
 
 }
-
-
-//void MainWindow::on_pushButton_unurySign_clicked()
-//{
-
-//}
 
 void MainWindow::setSizeGraph() {
     ui->widget->clearGraphs();
@@ -178,6 +159,32 @@ void MainWindow::setSizeGraph() {
     ui->widget->yAxis->setRange(yMin, yMax);
 };
 
+void MainWindow::showGraph() {
+     window()->setFixedSize(842, window()->height());
+     ui->widget->show();
+     ui->lineEdit_xMax->show();
+     ui->lineEdit_yMax->show();
+     ui->lineEdit_xMin->show();
+     ui->lineEdit_yMin->show();
+
+     ui->label_xMax->show();
+     ui->label_yMax->show();
+     ui->label_xMin->show();
+     ui->label_yMin->show();
+};
+void MainWindow::hideGraph() {
+    window()->setFixedSize(420, window()->height());
+    ui->widget->hide();
+    ui->lineEdit_xMax->hide();
+    ui->lineEdit_yMax->hide();
+    ui->lineEdit_xMin->hide();
+    ui->lineEdit_yMin->hide();
+
+    ui->label_xMax->hide();
+    ui->label_yMax->hide();
+    ui->label_xMin->hide();
+    ui->label_yMin->hide();
+};
 
 void MainWindow::on_pushButton_graph_clicked()
 {
@@ -204,21 +211,8 @@ void MainWindow::on_pushButton_graph_clicked()
             s21_clearStack(copy);
     }
     if (main)
-      s21_clearStack(main);
-
-     ui->widget->show();
-     ui->lineEdit_xMax->show();
-     ui->lineEdit_yMax->show();
-     ui->lineEdit_xMin->show();
-     ui->lineEdit_yMin->show();
-
-     ui->label_xMax->show();
-     ui->label_yMax->show();
-     ui->label_xMin->show();
-     ui->label_yMin->show();
-
-     window()->setFixedSize(842, window()->height());
-
+     s21_clearStack(main);
+     showGraph();
      ui->widget->clearGraphs();
      ui->widget->addGraph();
      ui->widget->graph(0)->addData(x, y);

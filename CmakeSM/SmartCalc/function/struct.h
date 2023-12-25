@@ -1,5 +1,6 @@
 #pragma once
 #include <stdbool.h>
+
 typedef struct s21_stack {
     double number;
     char *sign;
@@ -30,13 +31,12 @@ typedef struct {
     double totalTax;
 } DepositResult;
 
-
-            // initialAmount == сумма вклада
-            // depositTermMonths == срок вклада 
-            // annualInterestRate == процентная ставка
-            // taxRate == налог
-            // payoutPeriodicity == выплаты (частота выплат ежедневно , еженедельно, раз в месяц, раз в пол года, раз в год)
-            // interestCapitalization == капитализация 
-            // deposits == сумма вкладов
-            // withdrawals == сумма снятий
+// initialAmount == сумма вклада
+// depositTermMonths == срок вклада 
+// annualInterestRate == процентная ставка
+// taxRate == налог
+// payoutPeriodicity == выплаты (частота выплат ежедневно , еженедельно, раз в месяц, раз в пол года, раз в год)
+// interestCapitalization == капитализация 
+// deposits == сумма вкладов
+// withdrawals == сумма снятий
             

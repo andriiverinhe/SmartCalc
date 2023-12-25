@@ -1,5 +1,8 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "stack.h"
-#include "../struct.h" // Этот путь включает заголовочный файл smart_calc.h
+#include "../struct.h"
 
 s21_stack *s21_push(s21_stack *top, double number, const char *sign,
                     int priority) {
@@ -18,7 +21,7 @@ s21_stack *s21_push(s21_stack *top, double number, const char *sign,
 
 s21_stack *s21_pop(s21_stack *top) {
   if (top == NULL) {
-    printf("Стек пуст, невозможно выполнить операцию pop.\n");
+    fprintf(stderr, "Стек пуст, невозможно выполнить операцию pop.\n");
     return NULL;
   }
   s21_stack *temp = top;
@@ -68,7 +71,6 @@ s21_stack *s21_copyStack(const s21_stack *original_top) {
 
         if (new_node == NULL) {
             // Обработка ошибки: не удалось выделить память
-            // Можно выбрасывать исключение или вернуть частично скопированный стек
             s21_clearStack(copied_top);  // Очищаем уже скопированные элементы
             return NULL;
         }

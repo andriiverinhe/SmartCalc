@@ -1,6 +1,10 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
 #include "../struct.h"
-#include "math.h"
 #include "stack.h"
+
 void s21_setValueStack(const double number, const char *sign,
                        const int priority, s21_stack *st) {
   st->number = number;

@@ -50,6 +50,8 @@ private slots:
 
 private:
     void setSizeGraph();
+    void showGraph();
+    void hideGraph();
 };
 
 #endif // MAINWINDOW_H

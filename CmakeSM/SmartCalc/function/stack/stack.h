@@ -1,9 +1,5 @@
 #pragma once
-
-#include "../struct.h" // Включение общего заголовка
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../struct.h" 
 
 // MAIN
 s21_stack *s21_push(s21_stack *top, double number, const char *sign,

@@ -57,12 +57,6 @@ int s21_checkSing(char *str, int *index) {
         str[i] == 't' || str[i] == '(' || str[i] == 'l' || str[i] == 'x' ||
         isdigit(str[i]))
       break;
-    // if(str[i] == '^' &&(str[i+1] == '-' || str[i+1] == '+')) {
-    //   code = -1;
-    //   i++;
-    //   // printf("12\n");
-    //   break;
-    // }
   }
   if (codeSIGN != 1)
     code = 0;

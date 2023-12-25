@@ -55,10 +55,7 @@ void s21_calculateAnnuityPayment(double loanAmount, double annualInterestRate, i
 long double get_tax_amount(long double total_amount, long double tax_rate);
 long double get_total_amount(long double deposit_amount,
                              long double earned_money, long double tax_amount);
-long double get_total_earned(double *deposit_amount, double term,
-                             long double interest_rate, int MODE,
-                             bool is_capitalization, long double replenishments,
-                             long double withdraws);
+long double get_total_earned(DepositResult *deposit, int MODE);
 // HELPERS
 double s21_NewCalculator(s21_stack *st);
 void s21_getNumber(const char *input, char *num);

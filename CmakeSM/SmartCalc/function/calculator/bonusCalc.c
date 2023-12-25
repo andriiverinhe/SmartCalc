@@ -43,29 +43,26 @@ long double get_total_amount(long double deposit_amount,
   return deposit_amount + earned_money - tax_amount;
 }
 
-long double get_total_earned(double *deposit_amount, double term,
-                             long double interest_rate, int MODE,
-                             bool is_capitalization, long double replenishments,
-                             long double withdraws) {
+long double get_total_earned(DepositResult *deposit, int MODE) {
   long double earned_money_amount = 0;
   int period = MODE == 1 ? 12 : 1;
 //   replenishments = MODE == 1 ? replenishments : replenishments * 12;
 //   withdraws = MODE == 1 ? withdraws : withdraws * 12;
 
-  for (int i = 0; (double)i < term; i++) {
+  for (int i = 0; (double)i < deposit->depositTermMonths; i++) {
     long double cumulative_earnings = 0;
     if (MODE == 1) {
-      cumulative_earnings = *deposit_amount * interest_rate / 100 / period;
+      cumulative_earnings = deposit->initialAmount * deposit->annualInterestRate / 100 / period;
     }
     if (MODE == 2) {
       if (i % 11 == 0 && i != 0) {
-        cumulative_earnings = *deposit_amount * interest_rate / 100 / period;
+        cumulative_earnings = deposit->initialAmount * deposit->annualInterestRate / 100 / period;
       }
     }
-    *deposit_amount += replenishments;
-    *deposit_amount -= withdraws;
-    if (is_capitalization) {
-      *deposit_amount += cumulative_earnings;
+    deposit->initialAmount += deposit->deposits;
+    deposit->initialAmount -= deposit->withdrawals;
+    if (deposit->interestCapitalization) {
+      deposit->initialAmount += cumulative_earnings;
     }
     earned_money_amount += cumulative_earnings;
   }
