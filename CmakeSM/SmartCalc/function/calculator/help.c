@@ -50,8 +50,8 @@ s21_stack *s21_getStackFromStr(const char *input, s21_stack *main) {
           strcpy(sign, "~");
         else if (main->priority == BRACKET && strcmp(main->sign, "(") == 0)
           strcpy(sign, "~");
-        else if(main->priority == POWER)
-          strcpy(sign, "~");
+        // else if(main->priority == POWER)
+        //   strcpy(sign, "~");
 
       }
       if (strcmp(sign, "+") == 0) {
@@ -59,8 +59,8 @@ s21_stack *s21_getStackFromStr(const char *input, s21_stack *main) {
           plusUnary = 1;
         else if (main->priority == BRACKET && strcmp(main->sign, "(") == 0)
           plusUnary = 1;
-        else if(main->priority == POWER)
-          plusUnary = 1;
+        // else if(main->priority == POWER)
+        //   plusUnary = 1;
 
       }
       if (!plusUnary) {
@@ -99,8 +99,6 @@ int s21_getPriority(char *sign) {
 
 
 s21_stack *s21_getStackOnPolishNotation(s21_stack *main) {
-  if (!main)
-    return NULL;
 
   s21_stack *tmp = NULL;
   s21_stack *sign = NULL;

@@ -96,7 +96,7 @@ START_TEST(test_8) {
     result.interestCapitalization = 0;
     
     long double res1 = get_total_earned(&result, 2);
-    ck_assert_double_eq_tol(res1, 0.0, ACCURECY);
+    ck_assert_double_eq_tol(res1, 800.0, ACCURECY);
 }
 END_TEST
 

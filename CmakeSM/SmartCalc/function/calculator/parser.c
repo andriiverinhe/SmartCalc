@@ -3,14 +3,12 @@
 int s21_isBalanced(char *str) {
   int stack_size = 0;
   int str_len = strlen(str);
-  char stack[str_len];
-
+  
   for (int i = 0; i < str_len; i++) {
     if (str[i] == '(') {
-      stack[stack_size] = '(';
       stack_size++;
     } else if (str[i] == ')') {
-      if (stack_size == 0 || stack[stack_size - 1] != '(') {
+      if (stack_size == 0) {
         return 0; // Нарушен порядок
       }
       stack_size--;
@@ -26,10 +24,12 @@ int s21_checkDigit(char *str, int *index) {
   size_t i = 0;
   for (; (i < strlen(str)) && (isdigit(str[i]) || str[i] == '.') && code == 1;
        i++) {
-    if (str[i] == '.' && codeDOT == 0)
-      codeDOT = 1;
-    else if (str[i] == '.' && codeDOT == 1)
-      code = 0;
+    if (str[i] == '.' ) {
+      if(codeDOT == 0)
+        codeDOT = 1;
+      else 
+        code = 0;
+    }
   }
   if(i == 0) {
       if (str[i] == 'x') {
@@ -132,8 +132,7 @@ int s21_validator(char *str) {
       // printf("code FUNC: %d\n", codeFUNC);
 
     } else if (str[i] == '(' &&
-               ((codeFUNC || codeSIGN || codeBracketL) ||
-                (codeFUNC == 0 || codeSIGN == 0 || codeDIG == 0))) {
+               ((codeFUNC || codeSIGN || codeBracketL) || (codeFUNC == 0 || codeSIGN == 0 || codeDIG == 0))) {
       codeBracketL = 1;
       codeFUNC = 0;
       codeSIGN = 0;

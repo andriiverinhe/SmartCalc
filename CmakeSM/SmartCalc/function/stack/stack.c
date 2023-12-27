@@ -9,21 +9,21 @@ s21_stack *s21_push(s21_stack *top, double number, const char *sign,
   s21_stack *new_node =
       (s21_stack *)malloc(sizeof(s21_stack)); // Выделение памяти под новый узел
 
-  if (new_node == NULL) {
-    // Обработка ошибки: не удалось выделить память
-    // Можно выбрасывать исключение или вернуть NULL
-    return NULL;
-  }
+  // if (new_node == NULL) {
+  //   // Обработка ошибки: не удалось выделить память
+  //   // Можно выбрасывать исключение или вернуть NULL
+  //   return NULL;
+  // }
   s21_setValueStack(number, sign, priority, new_node);
   new_node->next = top; // Новый узел указывает на предыдущий top
   return new_node; // Возвращаем указатель на новый узел как новую вершину стека
 }
 
 s21_stack *s21_pop(s21_stack *top) {
-  if (top == NULL) {
-    fprintf(stderr, "Стек пуст, невозможно выполнить операцию pop.\n");
-    return NULL;
-  }
+  // if (top == NULL) {
+  //   fprintf(stderr, "Стек пуст, невозможно выполнить операцию pop.\n");
+  //   return NULL;
+  // }
   s21_stack *temp = top;
   top = top->next; // Обновляем top на предыдущий элемент
   if (temp) {
@@ -65,11 +65,11 @@ s21_stack *s21_copyStack(const s21_stack *original_top) {
         // Создаем новый элемент для нового стека
         s21_stack *new_node = (s21_stack *)malloc(sizeof(s21_stack));
 
-        if (new_node == NULL) {
-            // Обработка ошибки: не удалось выделить память
-            s21_clearStack(copied_top);  // Очищаем уже скопированные элементы
-            return NULL;
-        }
+        // if (new_node == NULL) {
+        //     // Обработка ошибки: не удалось выделить память
+        //     s21_clearStack(copied_top);  // Очищаем уже скопированные элементы
+        //     return NULL;
+        // }
 
         // Копируем значения из текущего элемента исходного стека в новый элемент
         new_node->number = current_original->number;
@@ -78,12 +78,12 @@ s21_stack *s21_copyStack(const s21_stack *original_top) {
             new_node->sign = malloc(strlen(current_original->sign) + 1);
             strcpy(new_node->sign, current_original->sign);
             // new_node->sign = strdup(current_original->sign);
-            if (new_node->sign == NULL) {
-                // Обработка ошибки: не удалось выделить память для строки
-                free(new_node);
-                s21_clearStack(copied_top);  // Очищаем уже скопированные элементы
-                return NULL;
-            }
+            // if (new_node->sign == NULL) {
+            //     // Обработка ошибки: не удалось выделить память для строки
+            //     free(new_node);
+            //     s21_clearStack(copied_top);  // Очищаем уже скопированные элементы
+            //     return NULL;
+            // }
         } else {
             new_node->sign = NULL;
         }

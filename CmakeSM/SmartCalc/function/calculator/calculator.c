@@ -19,7 +19,7 @@ double s21_calc(char *input, const int inputX) {
     // s21_printStack(main);
     result = s21_NewCalculator(main);
 
-    if (main)
+    // if (main)
       s21_clearStack(main);
   }
   return code == 1 ? result : NAN;

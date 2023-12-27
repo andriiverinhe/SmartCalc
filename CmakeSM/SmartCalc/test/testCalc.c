@@ -203,6 +203,33 @@ START_TEST (test_28) {
 }
 END_TEST
 
+START_TEST (test_29) {
+    double arr[5] = {1.0,2.0,3.0,4.0,5.0};
+    ck_assert_double_eq_tol(s21_sumArray(arr, 5), 15.0, ACCURECY);
+
+}
+END_TEST
+
+START_TEST (test_30) {
+    s21_stack *main = NULL;
+    main = s21_push(main, 0 , NULL, 0);
+    s21_setValueStack(0, NULL, 1, main);
+    s21_stack *cp = s21_copyStack(main); 
+    ck_assert_ptr_null(cp->sign);
+
+
+    s21_clearStack(cp);
+    s21_clearStack(main);
+}
+END_TEST
+START_TEST (test_31) {
+    double res = s21_calc(NULL, 0);
+    ck_assert_double_nan(res);
+    res = s21_calc("", 0);
+    ck_assert_double_nan(res);
+
+}
+END_TEST
 
 
 
@@ -238,6 +265,9 @@ Suite *s21_testCalc(void) {
     tcase_add_test(tc, test_26);
     tcase_add_test(tc, test_27);
     tcase_add_test(tc, test_28);
+    tcase_add_test(tc, test_29);
+    tcase_add_test(tc, test_30);
+    tcase_add_test(tc, test_31);
     
 
     suite_add_tcase(s, tc);
