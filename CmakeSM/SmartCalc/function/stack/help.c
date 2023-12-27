@@ -9,11 +9,11 @@ void s21_setValueStack(const double number, const char *sign,
                        const int priority, s21_stack *st) {
   st->number = number;
 
-  if (sign)
+  // if (sign)
     st->sign = malloc(strlen(sign) + 1); // Выделяем память для строки
-  if (st->sign != NULL) {
+  // if (st->sign != NULL) {
     strcpy(st->sign, sign); // Копируем строку
-  }
+  // }
   st->priority = priority;
 }
 

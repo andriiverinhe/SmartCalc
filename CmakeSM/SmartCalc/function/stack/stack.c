@@ -27,8 +27,8 @@ s21_stack *s21_pop(s21_stack *top) {
   s21_stack *temp = top;
   top = top->next; // Обновляем top на предыдущий элемент
   if (temp) {
-    if (temp->sign)
-      free(temp->sign); // Освобождаем память, выделенную под строку
+    // if (temp->sign)
+    free(temp->sign); // Освобождаем память, выделенную под строку
     free(temp); // Освобождаем память, выделенную под узел
   }
 
@@ -73,7 +73,7 @@ s21_stack *s21_copyStack(const s21_stack *original_top) {
 
         // Копируем значения из текущего элемента исходного стека в новый элемент
         new_node->number = current_original->number;
-        if (current_original->sign != NULL) {
+        // if (current_original->sign != NULL) {
 
             new_node->sign = malloc(strlen(current_original->sign) + 1);
             strcpy(new_node->sign, current_original->sign);
@@ -84,9 +84,9 @@ s21_stack *s21_copyStack(const s21_stack *original_top) {
             //     s21_clearStack(copied_top);  // Очищаем уже скопированные элементы
             //     return NULL;
             // }
-        } else {
-            new_node->sign = NULL;
-        }
+        // } else {
+        //     new_node->sign = NULL;
+        // }
         new_node->priority = current_original->priority;
 
         // Добавляем новый элемент в вершину нового стека

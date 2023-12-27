@@ -195,9 +195,8 @@ START_TEST (test_27) {
 END_TEST
 START_TEST (test_28) {
     s21_stack *main = NULL;
-    main = s21_push(main, 0 , NULL, 0);
-    s21_setValueStack(0, NULL, 1, main);
-    ck_assert_ptr_null(main->sign);
+    main = s21_push(main, 0 , "", 0);
+    ck_assert_ptr_nonnull(main->sign);
 
     s21_clearStack(main);
 }
@@ -212,10 +211,9 @@ END_TEST
 
 START_TEST (test_30) {
     s21_stack *main = NULL;
-    main = s21_push(main, 0 , NULL, 0);
-    s21_setValueStack(0, NULL, 1, main);
+    main = s21_push(main, 0 , "", 0);
     s21_stack *cp = s21_copyStack(main); 
-    ck_assert_ptr_null(cp->sign);
+    ck_assert_ptr_nonnull(cp->sign);
 
 
     s21_clearStack(cp);

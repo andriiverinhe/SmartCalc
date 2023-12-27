@@ -31,6 +31,10 @@ test: $(TEST_OBJECT) $(LIBRARY)
 	$(CC) $(CFLAGS) $(CHECKFLAGS) $(TEST_OBJECT) $(LIBRARY) -o test_suite $(LIBS)
 	./test_suite
 	
+valgrind: test
+	valgrind --tool=memcheck --leak-check=yes --log-file="valgrind.log" ./test_suite
+
+
 peer: gcov_report gcov_html
 
 gcov_report: CFLAGS += $(CFLAGS_COVERAGE)
